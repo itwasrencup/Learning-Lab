@@ -2,10 +2,8 @@ import discord
 from discord.ext import commands
 import random 
 tips = ["you cant type 'quit' to quit", "eating uranium is an extremely good idea!", "C is superior to C++", "Imagine using windows, cant be me", "Git Gud", "The cake is a lie", 'print("im pretty sure im writing this wrong")', "Im genunely convinced that Artemis 13 is peak", "Domain Expansion: Infinite Random bs", 'helloworld("print") \n \n Syntax Error: Never code again']
-# secret = open("secret.txt")
 intents = discord.Intents.default()
 intents.message_content = True
-
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.event
@@ -43,7 +41,8 @@ async def opendemonlist(ctx, demonlist):
     elif demonlist == "Aredl":
         await ctx.send("https://aredl.net/list/149992717")
     else:
-        await ctx.send("Nessuna demonlist trovata, sicuro che l'hai scritta bene?")
+        await ctx.send(" https://soggy.cat/ (Nessuna Demonlist trovata, sicuro di averla scritta bene?)")
+
 
 @bot.command()
 async def domath(ctx, num1, operator, num2):
@@ -113,4 +112,4 @@ async def rcs(ctx, difficulty, choice):
     except:
         await ctx.send("Errore: qualcosa e' andato storto")
 
-bot.run("Token Rimosso Nelle Commits Git")
+bot.run(secret)
