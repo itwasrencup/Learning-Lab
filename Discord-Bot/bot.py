@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import random 
+import os
 tips = ["you cant type 'quit' to quit", "eating uranium is an extremely good idea!", "C is superior to C++", "Imagine using windows, cant be me", "Git Gud", "The cake is a lie", 'print("im pretty sure im writing this wrong")', "Im genunely convinced that Artemis 13 is peak", "Domain Expansion: Infinite Random bs", 'helloworld("print") \n \n Syntax Error: Never code again']
 intents = discord.Intents.default()
 intents.message_content = True
@@ -111,5 +112,18 @@ async def rcs(ctx, difficulty, choice):
                 await ctx.send(f"Il bot ha scelto {botchoice}, e tu {choice}, hai perso, GGs")
     except:
         await ctx.send("Errore: qualcosa e' andato storto")
+
+@bot.command()
+async def mempick(ctx):
+    # avaiable_images = ["1.jpg", '2.jpg', '3.jpg', '4.jpg', '5.png']
+    dir = 'Discord-Bot/images/'
+    all_pictures = os.listdir(dir)
+    # print(all_pictures)
+    selected_picture = random.choice(all_pictures)
+    with open(f'Discord-Bot/images/{selected_picture}', 'rb') as f:
+        # Memorizziamo il file della libreria di Discord convertito in questa variabile!
+        picture = discord.File(f)
+   # Possiamo quindi inviare questo file come parametro!
+    await ctx.send(file=picture)
 
 bot.run(secret)
