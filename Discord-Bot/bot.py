@@ -2,9 +2,11 @@ import discord
 from discord.ext import commands
 import random 
 import os
+import requests
 tips = ["you cant type 'quit' to quit", "eating uranium is an extremely good idea!", "C is superior to C++", "Imagine using windows, cant be me", "Git Gud", "The cake is a lie", 'print("im pretty sure im writing this wrong")', "Im genunely convinced that Artemis 13 is peak", "Domain Expansion: Infinite Random bs", 'helloworld("print") \n \n Syntax Error: Never code again']
 intents = discord.Intents.default()
 intents.message_content = True
+secrets = "ho rimosso la chiave prima di committare"
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.event
@@ -125,5 +127,43 @@ async def mempick(ctx):
         picture = discord.File(f)
    # Possiamo quindi inviare questo file come parametro!
     await ctx.send(file=picture)
+
+def get_duck_image_url():    
+    url = 'https://random-d.uk/api/random'
+    res = requests.get(url)
+    data = res.json()
+    return data['url']
+
+def get_cat_image_url():    
+    url = 'https://cataas.com/cat?position=center&json=true'
+    res = requests.get(url)
+    data = res.json()
+    return data['url']
+
+def get_ultracat_image_url(textt): 
+    texttt = textt.replace(' ', '%20')
+    url = f'https://cataas.com/cat/says/{texttt}?position=center&json=true&font=Impact&fontSize=50&fontColor=%23fff&fontBackground=none'
+    res = requests.get(url)
+    data = res.json()
+    return data['url']
+
+
+@bot.command('duck')
+async def duck(ctx):
+    '''Una volta chiamato il comando duck, il programma richiama la funzione get_duck_image_url'''
+    image_url = get_duck_image_url()
+    await ctx.send(image_url)
+
+@bot.command('gitcat')
+async def gitcat(ctx):
+    '''Una volta chiamato il comando gitcat, il programma richiama la funzione get_cat_image_url'''
+    image_url = get_cat_image_url()
+    await ctx.send(image_url)
+
+@bot.command('catadvanced')
+async def catadvanced(ctx, text):
+    '''Una volta chiamato il comando gitcat, il programma richiama la funzione get_cat_image_url'''
+    image_url = get_ultracat_image_url(text)
+    await ctx.send(image_url)
 
 bot.run(secret)
