@@ -220,5 +220,7 @@ __marimo__/
 .streamlit/secrets.toml
 
 # Token
-
 token.txt
+
+# ControllBot
+Discord-Bot/ControllBot

@@ -1,11 +1,12 @@
 import discord
 from discord.ext import commands
 import random 
+import os
+import requests
 tips = ["you cant type 'quit' to quit", "eating uranium is an extremely good idea!", "C is superior to C++", "Imagine using windows, cant be me", "Git Gud", "The cake is a lie", 'print("im pretty sure im writing this wrong")', "Im genunely convinced that Artemis 13 is peak", "Domain Expansion: Infinite Random bs", 'helloworld("print") \n \n Syntax Error: Never code again']
-# secret = open("secret.txt")
 intents = discord.Intents.default()
 intents.message_content = True
-
+secrets = "ho rimosso la chiave prima di committare"
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.event
@@ -43,7 +44,8 @@ async def opendemonlist(ctx, demonlist):
     elif demonlist == "Aredl":
         await ctx.send("https://aredl.net/list/149992717")
     else:
-        await ctx.send("Nessuna demonlist trovata, sicuro che l'hai scritta bene?")
+        await ctx.send(" https://soggy.cat/ (Nessuna Demonlist trovata, sicuro di averla scritta bene?)")
+
 
 @bot.command()
 async def domath(ctx, num1, operator, num2):
@@ -113,4 +115,55 @@ async def rcs(ctx, difficulty, choice):
     except:
         await ctx.send("Errore: qualcosa e' andato storto")
 
-bot.run("Token Rimosso Nelle Commits Git")
+@bot.command()
+async def mempick(ctx):
+    # avaiable_images = ["1.jpg", '2.jpg', '3.jpg', '4.jpg', '5.png']
+    dir = 'Discord-Bot/images/'
+    all_pictures = os.listdir(dir)
+    # print(all_pictures)
+    selected_picture = random.choice(all_pictures)
+    with open(f'Discord-Bot/images/{selected_picture}', 'rb') as f:
+        # Memorizziamo il file della libreria di Discord convertito in questa variabile!
+        picture = discord.File(f)
+   # Possiamo quindi inviare questo file come parametro!
+    await ctx.send(file=picture)
+
+def get_duck_image_url():    
+    url = 'https://random-d.uk/api/random'
+    res = requests.get(url)
+    data = res.json()
+    return data['url']
+
+def get_cat_image_url():    
+    url = 'https://cataas.com/cat?position=center&json=true'
+    res = requests.get(url)
+    data = res.json()
+    return data['url']
+
+def get_ultracat_image_url(textt): 
+    texttt = textt.replace(' ', '%20')
+    url = f'https://cataas.com/cat/says/{texttt}?position=center&json=true&font=Impact&fontSize=50&fontColor=%23fff&fontBackground=none'
+    res = requests.get(url)
+    data = res.json()
+    return data['url']
+
+
+@bot.command('duck')
+async def duck(ctx):
+    '''Una volta chiamato il comando duck, il programma richiama la funzione get_duck_image_url'''
+    image_url = get_duck_image_url()
+    await ctx.send(image_url)
+
+@bot.command('gitcat')
+async def gitcat(ctx):
+    '''Una volta chiamato il comando gitcat, il programma richiama la funzione get_cat_image_url'''
+    image_url = get_cat_image_url()
+    await ctx.send(image_url)
+
+@bot.command('catadvanced')
+async def catadvanced(ctx, text):
+    '''Una volta chiamato il comando gitcat, il programma richiama la funzione get_cat_image_url'''
+    image_url = get_ultracat_image_url(text)
+    await ctx.send(image_url)
+
+bot.run(secret)
